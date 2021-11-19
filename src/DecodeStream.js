@@ -10,7 +10,11 @@ class DecodeStream {
 
   readString(length, encoding = 'ascii') {    
     switch (encoding) {
-      case 'utf16le': case 'ucs2': case 'utf8': case 'ascii':
+      case 'ascii':
+        var str = this.buffer.toString(encoding, this.pos, (this.pos += length));
+        return str.replace(/\x00*$/, '');
+
+      case 'utf16le': case 'ucs2': case 'utf8':
         return this.buffer.toString(encoding, this.pos, (this.pos += length));
 
       case 'utf16be':
