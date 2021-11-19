@@ -74,6 +74,10 @@ class StringT {
       this.length.encode(stream, Buffer.byteLength(val, encoding));
     }
 
+    if (typeof(this.length) == 'number') {
+      val = val.padEnd(this.length, '\0');
+    }
+
     stream.writeString(val, encoding);
 
     if ((this.length == null)) {
